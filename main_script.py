@@ -309,7 +309,7 @@ def wholeProgram():
 
     # Register pause/resume toggle on F3
     try:
-        keyboard.on_press_key('f3', _toggle_pause, suppress=False)
+        keyboard.on_press_key('f8', _toggle_pause, suppress=False)
         keyboard.on_press_key('f4', _request_abort, suppress=False)
     except Exception:
         pass
@@ -412,4 +412,5 @@ def wholeProgram():
 # Run the program
 if __name__ == '__main__':
     wholeProgram()
+
 
