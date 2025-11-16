@@ -19,8 +19,6 @@ else:
     tess_path = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 pytesseract.pytesseract.tesseract_cmd = tess_path
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-
 # API key will be provided by the launcher via globals
 # If not provided, try to get from environment variable as fallback
 try:
@@ -281,12 +279,43 @@ def fetch_code_from_github_raw(url, timeout=10):
         return ""
 
 # ----------------------
+# Speed selection helper (uses LAUNCHER_SPEED if injected by launcher)
+# ----------------------
+def get_speed_choice():
+    """
+    Determine typing speed. Priority:
+      1) LAUNCHER_SPEED (injected by launcher via script_globals)
+      2) environment variable 'LAUNCHER_SPEED' (rare)
+      3) prompt user
+    """
+    # 1) injected global
+    try:
+        if 'LAUNCHER_SPEED' in globals() and globals().get('LAUNCHER_SPEED'):
+            speed = globals().get('LAUNCHER_SPEED')
+            if speed in ('fast', 'slow'):
+                return speed
+    except Exception:
+        pass
+
+    # 2) environment fallback
+    env_speed = os.environ.get('LAUNCHER_SPEED')
+    if env_speed and env_speed.lower() in ('fast', 'slow'):
+        return env_speed.lower()
+
+    # 3) interactive prompt (falls back to 'fast' if invalid)
+    try:
+        speed_choice = input("Choose typing speed (fast/slow) [default: fast]: ").strip().lower()
+        if speed_choice not in ('fast', 'slow'):
+            return 'fast'
+        return speed_choice
+    except Exception:
+        return 'fast'
+
+# ----------------------
 # Main program
 # ----------------------
 def wholeProgram():
-    speed_choice = input("Choose typing speed (fast/slow) [default: fast]: ").strip().lower()
-    if speed_choice not in ['fast', 'slow']:
-        speed_choice = "fast"
+    speed_choice = get_speed_choice()
 
     print("\nProgram started with the following hotkeys:")
     print("ALT+X: Take single screenshot and process as code")
@@ -412,6 +441,3 @@ def wholeProgram():
 # Run the program
 if __name__ == '__main__':
     wholeProgram()
-
-
-
