@@ -77,7 +77,7 @@ def clean_code_with_chatgpt(code_text):
                 },
                 {
                     "role": "user",
-                    "content": f"Extract and clean the code from the following text and convert it to C++:\n\n{code_text}\n\nReturn only the complete C++ code. Use proper C++ syntax including #include statements, namespace std, main function, and proper data types. Implement all logic using C++ constructs. Write the full code always, including necessary headers, ensuring it matches the output cases given in the question at any cost. If there is any syntaxes whitelisted, you should strictly use those in code. And blacklisted syntaxes shouldn't be used. Whitelisted syntaxes will be written like set1 and set2 etc. they should be used at any cost. And dont write any comments."
+                    "content": f"Extract and clean the code from the following text and convert it to C++:\n\n{code_text}\n\nReturn only the complete C++ code. Use proper C++ syntax including #include statements, namespace std, main function, and proper data types. Implement all logic using C++ constructs. Write the full code always, including necessary headers, ensuring it matches the output cases given in the question at any cost. If there is any syntaxes whitelisted, you should strictly use those in code. And blacklisted syntaxes shouldn't be used. Whitelisted syntaxes will be written like set1 and set2 etc. they should be used at any cost. And dont write any comments. if header and footer are given, exactly include same codes in the output. U cant change anything from the given footer and header."
                 } 
             ],
             max_tokens=2000
@@ -412,5 +412,6 @@ def wholeProgram():
 # Run the program
 if __name__ == '__main__':
     wholeProgram()
+
 
 
