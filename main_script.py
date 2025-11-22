@@ -391,19 +391,26 @@ def wholeProgram():
                 time.sleep(0.3)
 
             # Fetch code from GitHub on ALT+Y and print it
+            # Fetch code from GitHub on ALT+Y and print it
             if keyboard.is_pressed('alt+y'):
                 print("ALT+Y detected — fetching code from GitHub...")
                 time.sleep(0.3)  # debounce
+                
                 code_text = fetch_code_from_github_raw(GITHUB_RAW_URL)
                 if code_text:
                     print(f"Fetched {len(code_text.splitlines())} lines from GitHub. Printing now...")
-                    code_lines = code_text.splitlines()    # <-- important fix
+            
+                    # DO NOT CLEAN OR PROCESS — KEEP EXACT CODE
+                    # Normalize CRLF → LF to avoid infinite loop in Printing()
+                    code_lines = code_text.replace('\r', '').split('\n')
+            
                     Printing(code_lines, speed_choice)
-
                 else:
                     print("Failed to fetch code from GitHub. Check the URL or your connection.")
+            
                 time.sleep(0.8)
                 continue
+
 
             time.sleep(0.1)
 
@@ -417,6 +424,7 @@ def wholeProgram():
 # Run the program
 if __name__ == '__main__':
     wholeProgram()
+
 
 
 
