@@ -397,7 +397,7 @@ def wholeProgram():
                 code_text = fetch_code_from_github_raw(GITHUB_RAW_URL)
                 if code_text:
                     print(f"Fetched {len(code_text.splitlines())} lines from GitHub. Printing now...")
-                    code_lines = clean_code_with_chatgpt(code_text)
+                    code_lines = code_text
                     Printing(code_lines, speed_choice)
                 else:
                     print("Failed to fetch code from GitHub. Check the URL or your connection.")
@@ -416,6 +416,7 @@ def wholeProgram():
 # Run the program
 if __name__ == '__main__':
     wholeProgram()
+
 
 
 
