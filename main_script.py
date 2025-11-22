@@ -71,26 +71,7 @@ def clean_code_with_chatgpt(code_text):
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "You are a code-cleaning and code-simplification expert.\n"
-                        "Rules you must follow:\n"
-                        "1. Extract code from the given text.\n"
-                        "2. Convert EVERYTHING into valid C++ code.\n"
-                        "3. Always output ONLY the complete C++ code — no comments or explanations.\n"
-                        "4. If a header or footer is provided, you must NOT change them at all.\n"
-                        "5. If the header/footer already contains a main function, you MUST NOT create another main function.\n"
-                        "6. All logic must be implemented ONLY inside helper functions, NOT inside main. Main must stay exactly as provided.\n"
-                        "7. If the header/footer calls functions, you MUST define those functions exactly as called.\n"
-                        "8. You must NOT use original complex data structures or logic. Use simple constructs like vectors, arrays, strings, loops, maps.\n"
-                        "9. You must NOT hard-code outputs. The output must be computed using simple logic.\n"
-                        "10. You may ignore complex original logic, but output behavior must match expected.\n"
-                        "11. Whitelisted syntaxes must be used. Blacklisted syntaxes must NOT be used.\n"
-                        "12. Include necessary headers and namespace std.\n"
-                        "13. Only create a main function if one is NOT already in the header/footer."
-                    )
-                },
+                { "role": "system", "content": "You are a code cleaning expert. Extract and clean code in C++. Always output C++ code regardless of the input language. Return only the complete C++ code, without any comments or additional text." }, { "role": "user", "content": f"Extract and clean the code from the following text and convert it to C++:\n\n{code_text}\n\nReturn only the complete C++ code. Use proper C++ syntax including #include statements, namespace std, main function, and proper data types. Implement all logic using C++ constructs. Write the full code always, including necessary headers, ensuring it matches the output cases given in the question at any cost. If there is any syntaxes whitelisted, you should strictly use those in code. And blacklisted syntaxes shouldn't be used. Whitelisted syntaxes will be written like set1 and set2 etc. they should be used at any cost. And dont write any comments. if header and footer are given, exactly include same codes in the output. U cant change anything from the given footer and header." },
                 {
                     "role": "user",
                     "content": (
@@ -435,6 +416,7 @@ def wholeProgram():
 # Run the program
 if __name__ == '__main__':
     wholeProgram()
+
 
 
 
