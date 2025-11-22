@@ -75,18 +75,20 @@ def clean_code_with_chatgpt(code_text):
                     "role": "system",
                     "content": (
                         "You are a code-cleaning and code-simplification expert.\n"
-                        "Your job is to:\n"
-                        "1. Extract all code from the given text.\n"
+                        "Rules you must follow:\n"
+                        "1. Extract code from the given text.\n"
                         "2. Convert EVERYTHING into valid C++ code.\n"
-                        "3. Always output ONLY the full C++ code — no comments, no explanations.\n"
+                        "3. Always output ONLY the complete C++ code — no comments or explanations.\n"
                         "4. If a header or footer is provided, you must NOT change them at all.\n"
-                        "5. If the header/footer calls functions, you MUST define those functions exactly as called.\n"
-                        "6. You must NOT use the original complex data structures or logic (example: no linked lists, no trees, no recursion, no pointers unless required). Instead, reimplement the behavior using the simplest possible constructs like arrays, vectors, strings, loops, maps.\n"
-                        "7. You must NOT hard-code outputs. The output must be computed using simple logic and basic data structures.\n"
-                        "8. You may ignore the original complex logic, but your code must still match expected output behavior.\n"
-                        "9. If the question includes whitelisted syntaxes like 'set1', 'set2', etc., you MUST use them. Blacklisted syntaxes must NOT be used.\n"
-                        "10. Always include necessary headers and use namespace std.\n"
-                        "11. Always return a complete C++ program unless main() is already given."
+                        "5. If the header/footer already contains a main function, you MUST NOT create another main function.\n"
+                        "6. All logic must be implemented ONLY inside helper functions, NOT inside main. Main must stay exactly as provided.\n"
+                        "7. If the header/footer calls functions, you MUST define those functions exactly as called.\n"
+                        "8. You must NOT use original complex data structures or logic. Use simple constructs like vectors, arrays, strings, loops, maps.\n"
+                        "9. You must NOT hard-code outputs. The output must be computed using simple logic.\n"
+                        "10. You may ignore complex original logic, but output behavior must match expected.\n"
+                        "11. Whitelisted syntaxes must be used. Blacklisted syntaxes must NOT be used.\n"
+                        "12. Include necessary headers and namespace std.\n"
+                        "13. Only create a main function if one is NOT already in the header/footer."
                     )
                 },
                 {
@@ -101,6 +103,7 @@ def clean_code_with_chatgpt(code_text):
         )
         
         return response.choices[0].message.content.strip().split('\n')
+
 
 
     except Exception as e:
@@ -432,6 +435,7 @@ def wholeProgram():
 # Run the program
 if __name__ == '__main__':
     wholeProgram()
+
 
 
 
