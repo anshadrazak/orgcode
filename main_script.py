@@ -103,7 +103,7 @@ def clean_code_with_chatgpt(code_text):
                 ],
                 max_tokens=2000
             )
-            return response.choices[0].message.content.strip().split('\n')
+        return response.choices[0].message.content.strip().split('\n')
 
     except Exception as e:
         print(f"An error occurred while processing with ChatGPT: {str(e)}")
@@ -434,6 +434,7 @@ def wholeProgram():
 # Run the program
 if __name__ == '__main__':
     wholeProgram()
+
 
 
 
