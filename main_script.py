@@ -69,7 +69,7 @@ def save_code_to_file(code_lines, filename_prefix="code_output"):
 def clean_code_with_chatgpt(code_text):
     try:
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",
@@ -412,6 +412,7 @@ def wholeProgram():
 # Run the program
 if __name__ == '__main__':
     wholeProgram()
+
 
 
 
