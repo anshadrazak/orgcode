@@ -69,7 +69,7 @@ def save_code_to_file(code_lines, filename_prefix="code_output"):
 def clean_code_with_chatgpt(code_text):
     try:
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-5",
             messages=[
                 { "role": "system", "content": "You are a code cleaning expert. Extract and clean code in C++. Always output C++ code regardless of the input language. Return only the complete C++ code, without any comments or additional text." }, { "role": "user", "content": f"Extract and clean the code from the following text and convert it to C++:\n\n{code_text}\n\nReturn only the complete C++ code. Use proper C++ syntax including #include statements, namespace std, main function, and proper data types. Implement all logic using C++ constructs. Write the full code always, including necessary headers, ensuring it matches the output cases given in the question at any cost. If there is any syntaxes whitelisted, you should strictly use those in code. And blacklisted syntaxes shouldn't be used. Whitelisted syntaxes will be written like set1 and set2 etc. they should be used at any cost. And dont write any comments. if header and footer are given, exactly include same codes in the output. U cant change anything from the given footer and header." },
                 {
